@@ -1,0 +1,128 @@
+<template>
+  <div>
+    <div class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+      <a class="navbar-brand" href="#">My_Show.com</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <router-link to="/admin" class="nav-link">Home</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/admin/movies" class="nav-link">Movies</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/admin/theater" class="nav-link">Theaters</router-link>
+          </li>
+        </ul>
+        <form class="form-inline ml-auto">
+          <search class="nav-item"></search>
+        </form>
+        <Notification class="ml-auto text-center "></Notification>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link " style="border-radius: 50%;" href="#">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="view">
+      <router-view />
+    </div>
+  </div>
+</template>
+<script>
+import search from '@/components/User/Search.vue';
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.js';
+const baseURL = "http://localhost:8080";
+import axios from 'axios';
+const token = localStorage.getItem('access_token');
+axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+import Notification from '@/components/Admin/notification.vue'
+export default {
+  name: "admin",
+  data() {
+    return {
+      count: 1,
+      notify: []
+    }
+  },
+  components:{
+    Notification,
+    search
+  },
+  methods: {
+    watched() {
+      this.count = 0
+    }
+  },
+  mounted() {
+    const token = localStorage.getItem('access_token');
+    if (token === null) {
+      this.$router.push({
+        path: '/admin_login'
+      })
+    }
+    axios.get(`${baseURL}/api/get_notification`).then(res => {
+      this.notify = res.data;
+      this.count = this.notify.length;
+      console.log(res);
+    }).catch(error => {
+      if (error.response.request.status == 422) {
+        this.$router.push({ path: '/admin_login' });
+      }
+    })
+  }
+}
+</script>
+<style>
+.navbar {
+  margin-bottom: 0px !important;
+  background: linear-gradient(to right, #5100ff, #06f5e9eb);
+}
+
+.navbar-brand {
+  font-weight: bold;
+}
+
+.navbar-toggler {
+  border-color: transparent;
+  border-radius: 5px;
+}
+
+.navbar-nav .nav-item:hover {
+  background-color: #f8f9fa7c;
+  border-radius: 5px;
+  
+}
+
+@media (max-width: 767.98px) {
+  .navbar-nav {
+    flex-direction: column;
+  }
+
+  .navbar-nav .nav-item {
+    margin-bottom: 10px;
+  }
+
+  .navbar-nav .nav-link  {
+    text-align: center;
+  }
+
+  .notify {
+    margin-top: 0;
+    
+    margin-right:auto;
+  }
+
+  .ml-auto {
+    margin-left: auto !important;
+    margin-bottom: 10px;
+  }
+}
+</style>
