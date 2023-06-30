@@ -38,7 +38,7 @@
 </template>
 <script>
 import Create_movie from "@/components/Admin/create_movie.vue"
-const baseURL = "http://localhost:8080";
+const baseURL = "https://cinemaghar.onrender.com";
 import axios from 'axios';
 const token=localStorage.getItem('access_token');
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;

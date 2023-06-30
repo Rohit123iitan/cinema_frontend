@@ -30,7 +30,7 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
-const baseURL = "http://localhost:8080";
+const baseURL = "https://cinemaghar.onrender.com";
 import axios from 'axios';
 const token = localStorage.getItem('access_token');
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;

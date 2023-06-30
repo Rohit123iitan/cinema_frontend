@@ -51,7 +51,7 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
-const baseURL = "http://localhost:8080";
+const baseURL = "https://cinemaghar.onrender.com";
 import axios from 'axios';
 import admin_access from '@/components/Admin/Admin_access.vue'
 export default {
