@@ -35,7 +35,6 @@ export default {
 </script>
 <style>
 .custm_container {
-  background: linear-gradient(to right, #1a640b, #d9ff00);
   margin-top: 40px;
 }
 .img-fit{
