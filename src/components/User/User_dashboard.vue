@@ -22,7 +22,7 @@
                         <a class="nav-link" href="/user/my_booking">My booking</a>
                     </li>
                 </ul>
-                <form class="form-inline ml-auto">
+                <form class="form-inline ml-auto search">
                     <search></search>
                 </form>
                 <ul class="navbar-nav ml-auto">
@@ -119,6 +119,9 @@ export default {
     }
     .ml-auto {
         margin-left: auto !important;
+    }
+    .search{
+        display: none;
     }
 }
 </style>
