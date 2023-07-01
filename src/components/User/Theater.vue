@@ -1,5 +1,5 @@
 <template>
-  <table class="table table-striped ">
+  <table class="table table-striped table-responsive-sm">
     <thead class="bg-dark text-light">
       <tr>
         <th>Theater Name</th>
