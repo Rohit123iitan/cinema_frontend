@@ -102,20 +102,6 @@ export default {
     margin-left: 10px;
     margin-bottom: 2px;
 }
-@media (max-width: 992px) {
-  .cst_input {
-    display:inline-flex;
-    flex-direction: column;
-  }
-  .filter-options {
-    margin-top: 0px;
-    margin-bottom: 4px;
-}
-.form-check-inline {
-    margin-left: 0px;
-    margin-bottom: 0px;
-}
-}
 </style>
   
   

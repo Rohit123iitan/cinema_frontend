@@ -2,6 +2,9 @@
     <div>
         <div class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
             <a class="navbar-brand" href="#">My_Show.com</a>
+            <div class="search1">
+                    <search></search>
+            </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -102,7 +105,9 @@ export default {
     border-radius: 20px;
     margin-left: 5px;
 }
-
+.search1{
+    display: none;
+}
 @media (max-width: 767.98px) {
     .navbar-nav {
         flex-direction: column;
@@ -122,6 +127,11 @@ export default {
     }
     .search{
         display: none;
+    }
+}
+@media (min-width: 768px) and (max-width: 992px) and (orientation: landscape) {
+    .search1{
+        display: block;
     }
 }
 </style>
