@@ -108,7 +108,7 @@ export default {
 .search1{
     display: none;
 }
-@media (max-width: 767.98px) {
+@media (max-width: 992px) {
     .navbar-nav {
         flex-direction: column;
     }
