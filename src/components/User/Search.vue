@@ -51,7 +51,8 @@ export default {
             searchQuery: '',
             filter: 'movies',
             searchResults: [],
-            Unique_Movies:[]
+            Unique_Movies:[],
+            Unique_theaters:[]
         };
     },
     
@@ -63,6 +64,13 @@ export default {
             if (this.filter === 'theaters') {
                 axios.post(`${baseURL}/api/search_theaters`, postdata).then(res => {
                     this.searchResults = res.data;
+                    for (let i = 0; i < this.searchResults.length; i++) {
+                        const name = this.searchResults[i].name;
+
+                        if (!this.Unique_theaters.includes(name)) {
+                            this.Unique_theaters.push(name);
+                        }
+                    }
                 })
             } else if (this.filter === 'movies') {
                 axios.post(`${baseURL}/api/search_movies`, postdata).then(res => {
