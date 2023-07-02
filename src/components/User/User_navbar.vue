@@ -98,12 +98,9 @@ export default {
     border-color: transparent;
     border-radius: 5px;
 }
-
-
 .navbar-nav .nav-item:hover {
     background-color: #f8f9fa7c;
-    border-radius: 20px;
-    margin-left: 5px;
+    border-radius: 10px;
 }
 .search1{
     display: none;
