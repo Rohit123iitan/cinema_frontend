@@ -83,11 +83,6 @@ export default {
   display: none !important;
 }
 
-.hb {
-  display: flex;
-  justify-content: space-between;
-}
-
 .custom_header {
   border-radius: 40px;
 
