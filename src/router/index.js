@@ -43,7 +43,7 @@ const routes = [
   },
   {
     path: '/user',
-    component: () => import( '../components/User/User_dashboard.vue'),
+    component: () => import( '../components/User/User_navbar.vue'),
     children: [
       {
         path: '',
