@@ -45,7 +45,7 @@
     </div>
   </template>
   <script>
-  const baseURL = "https://localhost:8080";
+  const baseURL = "https://cinemaghar.onrender.com";
   import axios from 'axios';
   import rating from '@/components/User/Raating.vue';
   const token = localStorage.getItem('access_token');
@@ -65,10 +65,10 @@
       rating,
     },
     created() {
-      this.resultId = this.$route.params.Id;
+      this.resultId = this.$route.params.name;
     },
     mounted() {
-      axios.post(`${baseURL}/api/get_theater_details`, { "theater_id": this.resultId }).then(res => {
+      axios.post(`${baseURL}/api/get_theater_details`, { "theater_name": this.resultId }).then(res => {
         this.Movies = res.data;
         console.log(res);
       }).catch(error => {
