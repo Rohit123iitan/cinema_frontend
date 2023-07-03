@@ -77,6 +77,11 @@ const routes = [
         props:true
       },
       {
+        path:'search/theater/:name',
+        component:() =>import('../components/User/Search_theater_result.vue'),
+        props:true
+      },
+      {
         path: 'theaters/details/:name/:Id',
         component: () => import('../components/User/Theater_Details.vue'),
         props:true
