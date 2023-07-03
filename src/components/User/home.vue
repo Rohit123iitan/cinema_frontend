@@ -1,6 +1,6 @@
 <template>
   <div class="container custm_container">
-    <div class="card custm_card">
+    <div class="card " id="custm_card">
       <div class="card-body text-center">
         <h1 class="card-title ">Welcome to Show.com!</h1>
         <p class="card-text">The ultimate destination for movie lovers.</p>
@@ -42,7 +42,7 @@ export default {
   height: 10%;
   border-radius: 5px;
 }
-.custm_card {
+#custm_card {
   border-radius: 50px;
   box-shadow: 0px 10px 10px 0px rgba(251, 6, 18, 0.588);
 }

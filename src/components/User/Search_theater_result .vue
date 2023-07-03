@@ -1,14 +1,16 @@
 <template>
   <div>
     <div class="card p-2 ">
-      <div class="card-header style_header1 ">
-        <div class="card-text ">result</div>
-        <div class=" d-inline-flex align-items-center ">
-          <select class="form-control" id="ratingFilter" v-model="selectedRating">
-            <option value="">All Ratings</option>
-            <option v-for="rating in ratings" :value="rating">{{ rating }}</option>
-          </select>
-        </div>
+      <div class="card-header header ">
+        <div class="card-text ">{{ Movies[0].t_name }}</div>
+      </div>
+    </div>
+    <div class="row" v-if="Movies[0].t_image!='0'">
+      <img :src="Movies[0].t_image" style="width: 100%; height: 20rem;" alt="Theater_img" />
+    </div>
+    <div class="card p-2 ">
+      <div class="card-header header ">
+        <div class="card-text ">Movies</div>
       </div>
     </div>
     <div class="row">
@@ -26,7 +28,7 @@
         </div>
         <img class="card-img-top style_img" :src="movie.image" alt="Card image cap">
         <div class="card-body">
-          <p class="card-text">Theater: {{ movie.theater }}</p>
+          <p class="card-text">vacent seat: {{ movie.seats }}</p>
           <p class="card-text">Type: {{ movie.type }}</p>
           <p class="card-text">Price: {{ movie.cost }}</p>
           <p v-if="movie.rating > 0" class="card-text">Rating: {{ movie.rating }}</p>
@@ -56,78 +58,76 @@ export default {
       Movies: [],
       Theaters: [],
       type: '',
-      m_name: null,
+      resultId: null,
     };
   },
   components: {
     rating,
   },
   created() {
-    this.type = this.$route.params.filter;
-    this.m_name = this.$route.params.id;
+    this.result_name = this.$route.params.name;
   },
   mounted() {
-    axios.post(`${baseURL}/api/get_movies`, { name: this.m_name }).then(res => {
+    axios.post(`${baseURL}/api/get_theater_details`, { "theater_name": this.result_name }).then(res => {
+      console.log("done");
       this.Movies = res.data;
       console.log(res);
     }).catch(error => {
       console.log(error)
-      this.$router.push({ path: '/' });
+      // this.$router.push({ path: '/' });
     })
   }
 }
 </script>
 <style>
 .style_buttom {
-  padding: 10px;
-  border-radius: 50px;
-  background-color: rgb(177, 43, 226);
+padding: 10px;
+border-radius: 50px;
+background-color: rgb(177, 43, 226);
 }
 
 .style_buttom:hover {
-  box-shadow: 0 0 0 0.2rem rgba(255, 0, 234, 0.589);
+box-shadow: 0 0 0 0.2rem rgba(255, 0, 234, 0.589);
 }
 
 .style_buttom2 {
-  background-color: initial;
-  border: none;
-  color: aliceblue;
+background-color: initial;
+border: none;
+color: aliceblue;
 }
 
 .dropdown-toggle::after {
-  display: none !important;
+display: none !important;
 }
 
 .hb {
-  display: flex;
-  justify-content: space-between;
+display: flex;
+justify-content: space-between;
 }
 
 .style_header {
-  border-radius: 40px;
+border-radius: 40px;
 
 }
 
-.style_header1 {
-  border-radius: 50px !important;
-  background-color: chartreuse !important;
-  display: inline-flex;
-  justify-content: space-between;
-  align-items: center;
+.header {
+border-radius: 50px !important;
+background-color: chartreuse !important;
+text-align: center;
 }
 
 .style_card {
-  width: 18rem;
-  background-color: rgb(97, 23, 62) !important;
+width: 18rem;
+background-color: rgb(97, 23, 62) !important;
 }
 
 .style_img {
-  height: 12rem;
+height: 12rem;
 }
 
 @media (max-width: 767px) {
-  .style_card {
-    width: 100%;
-  }
+.style_card {
+  width: 100%;
+}
 }
 </style>

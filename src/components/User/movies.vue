@@ -35,7 +35,7 @@
   </div>
 </template>
 <script>
-const baseURL = "https://cinemaghar.onrender.com";
+const baseURL = "http://localhost:8080";
 import axios from 'axios';
 import rating from '@/components/User/Raating.vue';
 // const token=localStorage.getItem('access_token');

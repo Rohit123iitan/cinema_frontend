@@ -9,10 +9,11 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/user">Home</a>
+                        <a class="nav-link" href="/user/movies">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/user/movies">Movies</a>
@@ -25,9 +26,9 @@
                         <a class="nav-link" href="/user/my_booking">My booking</a>
                     </li>
                 </ul>
-                <form class="form-inline ml-auto search">
+                <div class=" ml-auto search">
                     <search></search>
-                </form>
+                </div>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item" v-if="token==null">
                         <a class="nav-link  ctm_btn" href="/">Login</a>
@@ -37,6 +38,7 @@
                     </li>
                 </ul>
             </div>
+            
         </div>
             <router-view />
     </div>
@@ -98,6 +100,8 @@ export default {
     border-color: transparent;
     border-radius: 5px;
 }
+
+
 .navbar-nav .nav-item:hover {
     background-color: #f8f9fa7c;
     border-radius: 10px;
@@ -105,6 +109,7 @@ export default {
 .search1{
     display: none;
 }
+
 @media (max-width: 992px) {
     .navbar-nav {
         flex-direction: column;
@@ -126,7 +131,7 @@ export default {
         display: none;
     }
 }
-@media (min-width: 768px) and (max-width: 992px) and (orientation: landscape) {
+@media (min-width: 768px) and (max-width: 992px) {
     .search1{
         display: block;
     }

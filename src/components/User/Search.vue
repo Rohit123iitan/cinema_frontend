@@ -17,13 +17,11 @@
             <div>
                 <ul v-if="searchResults.length > 0 && filter=='movies'">
                     <li v-for="result in Unique_Movies" ><a
-                            :href="`/user/search/${filter}/${result}`">{{
+                            :href="`/user/search/movies/${result}`">{{
                                 result}}</a></li>
                 </ul>
                 <ul v-if="searchResults.length > 0 && filter=='theaters'">
-                    <li v-for="result in Unique_Movies" ><a
-                            :href="`/user/search/${filter}/${result}`">{{
-                                result}}</a></li>
+                    <li v-for="result in Unique_theaters" ><a :href="`/user/search/theaters/${result}`">{{result}}</a></li>
                 </ul>
             </div>
         </div>
@@ -41,7 +39,7 @@
 </template>
   
 <script>
-const baseURL = "https://cinemaghar.onrender.com";
+const baseURL = "http://localhost:8080";
 import axios from 'axios';
 const token = localStorage.getItem('access_token');
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -64,10 +62,8 @@ export default {
             if (this.filter === 'theaters') {
                 axios.post(`${baseURL}/api/search_theaters`, postdata).then(res => {
                     this.searchResults = res.data;
-                    console.log(res);
                     for (let i = 0; i < this.searchResults.length; i++) {
                         const name = this.searchResults[i].name;
-
                         if (!this.Unique_theaters.includes(name)) {
                             this.Unique_theaters.push(name);
                         }
@@ -78,7 +74,6 @@ export default {
                     this.searchResults = res.data;
                     for (let i = 0; i < this.searchResults.length; i++) {
                         const name = this.searchResults[i].name;
-
                         if (!this.Unique_Movies.includes(name)) {
                             this.Unique_Movies.push(name);
                         }

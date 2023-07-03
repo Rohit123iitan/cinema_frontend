@@ -13,7 +13,7 @@
   </template>
   
   <script>
-const baseURL = "https://cinemaghar.onrender.com";
+const baseURL = "http://localhost:8080";
 import axios from 'axios';
 const token=localStorage.getItem('access_token');
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;

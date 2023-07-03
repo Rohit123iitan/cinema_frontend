@@ -2,7 +2,7 @@
     <div>
       <div class="card p-2 ">
         <div class="card-header header ">
-          <div class="card-text ">{{ this.$route.params.name }}</div>
+          <div class="card-text ">{{ Movies[0].t_name }}</div>
         </div>
       </div>
       <div class="row" v-if="Movies[0].t_image!='0'">
@@ -45,7 +45,7 @@
     </div>
   </template>
   <script>
-  const baseURL = "https://cinemaghar.onrender.com";
+  const baseURL = "http://localhost:8080";
   import axios from 'axios';
   import rating from '@/components/User/Raating.vue';
   const token = localStorage.getItem('access_token');
@@ -68,12 +68,12 @@
       this.resultId = this.$route.params.Id;
     },
     mounted() {
-      axios.post(`${baseURL}/api/get_theater_details`, { "theater_id": this.resultId }).then(res => {
+      axios.post(`${baseURL}/api/get_theater_details`, { "theater_name": this.resultId }).then(res => {
         this.Movies = res.data;
         console.log(res);
       }).catch(error => {
         console.log(error)
-        // this.$router.push({ path: '/' });
+        this.$router.push({ path: '/' });
       })
     }
   }
