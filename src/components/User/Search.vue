@@ -64,6 +64,7 @@ export default {
             if (this.filter === 'theaters') {
                 axios.post(`${baseURL}/api/search_theaters`, postdata).then(res => {
                     this.searchResults = res.data;
+                    console.log(res);
                     for (let i = 0; i < this.searchResults.length; i++) {
                         const name = this.searchResults[i].name;
 
