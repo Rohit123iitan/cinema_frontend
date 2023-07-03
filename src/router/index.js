@@ -72,13 +72,13 @@ const routes = [
         component: () => import('../components/User/Theater.vue'),
       },
       {
-        path: 'search/:filter/:id',
+        path: 'search/movies/:id',
         component: () => import('../components/User/Search_movie_result.vue'),
         props:true
       },
       {
-        path:'search/theater/:name',
-        component:() =>import('../components/User/Search_theater_result.vue'),
+        path: 'search/theaters/:name',
+        component: () => import('../components/User/Search_theater_result .vue'),
         props:true
       },
       {
