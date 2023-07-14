@@ -25,7 +25,7 @@ const routes = [
   
   {
     path: '/admin',
-    component: () => import( '../views/Admin_Dashboard.vue'),
+    component: () => import( '../views/Admin_Navbar.vue'),
     children: [
       {
         path: '',
