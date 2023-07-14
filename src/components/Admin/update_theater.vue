@@ -6,16 +6,12 @@
             <div v-if="type == 'success'" style="display: inline-block;">&#127881;</div> {{ message }}
             <button type="button" class="mx-2 close" @click="hideFlashMessage">&times;</button>
         </div>
-        <div class="d-flex justify-content-center align-items-center ">
-            <button type="button" class="custom_buttom" data-toggle="modal" data-target="#exampleModal"
-                data-whatever="@getbootstrap">Add Theater</button>
-        </div>
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="addTheaterModalLabel"
+        <div class="modal fade" id="updateTheaterModal" tabindex="-1" role="dialog" aria-labelledby="updateTheaterModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
+                <div class="modal-content text-dark">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addTheaterModalLabel">Add Theater</h5>
+                        <h5 class="modal-title" id="updateTheaterModalLabel">Update Theater</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -25,7 +21,7 @@
                             <div class="mb-3">
                                 <label for="theaterName" class="form-label">Theater Name</label>
                                 <input type="text" class="form-control" id="theaterName" placeholder="Enter theater name"
-                                    v-model="theaterName">
+                                    v-model="theater" disabled>
                             </div>
                             <div class="mb-3">
                                 <label for="theaterAddress" class="form-label">Theater Address</label>
@@ -62,10 +58,9 @@ import 'bootstrap/dist/js/bootstrap.js';
 const token = localStorage.getItem('access_token');
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 export default {
-    
+    props: ['theater','id'],
     data() {
         return {
-            theaterName: '',
             theaterAddress: '',
             theaterCapacity: null,
             show: false,
@@ -91,22 +86,23 @@ export default {
         async register() {
             const formData = new FormData();
             formData.append('image', this.TheaterImage);
-            formData.append('t_name', this.theaterName);
+            formData.append('t_id', this.id);
             formData.append('t_address', this.theaterAddress);
             formData.append('t_capacity', this.theaterCapacity);
             console.log(formData)
             try {
-                const res = await axios.post(`${baseURL}/api/add_theater`, formData)
-                if (res.status != 200) {
-                    this.$refs.myButton.click();
-                    console.log(res);
+                const res = await axios.put(`${baseURL}/api/update_theater`, formData)
+                if (res.status == 200) {
+                    // this.$refs.myButton.click();
+                    console.log("Successful");
+                    window.location.reload();
                 }
                 else {
-                    this.$refs.myButton.click();
+                    // this.$refs.myButton.click();
                 }
             } catch (error) {
                 console.log(error);
-                this.$refs.myButton.click();
+                // this.$refs.myButton.click();
                 this.handleError(error);
             }
 

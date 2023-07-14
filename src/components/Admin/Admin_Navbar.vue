@@ -2,6 +2,9 @@
   <div>
     <div class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
       <a class="navbar-brand" href="#">My_Show.com</a>
+      <div class="search1">
+        <search></search>
+      </div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -18,13 +21,16 @@
             <router-link to="/admin/theater" class="nav-link">Theaters</router-link>
           </li>
         </ul>
-        <form class="form-inline ml-auto">
+        <div class="ml-auto search">
           <search class="nav-item"></search>
-        </form>
+        </div>
         <Notification class="ml-auto text-center "></Notification>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link " style="border-radius: 50%;" href="#">Login</a>
+          <li class="nav-item" v-if="token == null">
+            <a class="nav-link  ctm_btn" href="/admin_login">Login</a>
+          </li>
+          <li class="nav-item" v-if="token">
+            <a class="nav-link  ctm_btn" @click="Logout">logout</a>
           </li>
         </ul>
       </div>
@@ -39,7 +45,7 @@ import search from '@/components/User/Search.vue';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
-const baseURL = "https://cinemaghar.onrender.com";
+const baseURL = "http://localhost:8080";
 import axios from 'axios';
 const token = localStorage.getItem('access_token');
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -49,21 +55,27 @@ export default {
   data() {
     return {
       count: 1,
-      notify: []
+      notify: [],
+      token: null,
     }
   },
-  components:{
+  components: {
     Notification,
     search
   },
   methods: {
     watched() {
       this.count = 0
+    },
+    Logout() {
+      localStorage.removeItem("admin_access_token");
+      this.token = null;
+      this.$router.push({ path: '/admin_login' });
     }
   },
   mounted() {
-    const token = localStorage.getItem('access_token');
-    if (token === null) {
+    this.token= localStorage.getItem('admin_access_token');
+    if (this.token === null) {
       this.$router.push({
         path: '/admin_login'
       })
@@ -81,6 +93,18 @@ export default {
 }
 </script>
 <style>
+.ctm_btn{
+    border-radius: 15px;
+    color: rgb(245, 245, 249) !important;
+    background-color: rgba(3, 17, 95, 0.959);
+    padding-left: 20px;
+    padding-right: 20px;
+    cursor:pointer;
+}
+.ctm_btn:hover{
+    box-shadow: 0 0 0 0.2rem rgba(254, 4, 250, 0.881);
+
+}
 .navbar {
   margin-bottom: 0px !important;
   background: linear-gradient(to right, #5100ff, #06f5e9eb);
@@ -97,11 +121,13 @@ export default {
 
 .navbar-nav .nav-item:hover {
   background-color: #f8f9fa7c;
-  border-radius: 5px;
-  
-}
+  border-radius: 10px;
 
-@media (max-width: 767.98px) {
+}
+.search1{
+    display: none;
+}
+@media (max-width: 992px) {
   .navbar-nav {
     flex-direction: column;
   }
@@ -110,19 +136,27 @@ export default {
     margin-bottom: 10px;
   }
 
-  .navbar-nav .nav-link  {
+  .navbar-nav .nav-link {
     text-align: center;
   }
 
   .notify {
     margin-top: 0;
-    
-    margin-right:auto;
+
+    margin-right: auto;
   }
 
   .ml-auto {
     margin-left: auto !important;
     margin-bottom: 10px;
   }
+  .search{
+        display: none;
+    }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+    .search1{
+        display: block;
+    }
 }
 </style>

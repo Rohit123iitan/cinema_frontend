@@ -1,67 +1,58 @@
 <template>
   <div>
-    <Create_theater></Create_theater>
-    <div class="card p-2 my-2 ">
+    <Create_theater class="my-2"></Create_theater>
+    <div class="card p-2">
       <div class="card-header custom_header1 ">
         <div class="card-text text-center ">Exisiting Theater</div>
       </div>
     </div>
     <div class="row">
       <div class="card text-white m-2 custom_card " v-for="theater in Theaters">
-        <div class="card-header hb">
+        <div class="card-header text-center">
           <h5 class="card-title">{{ theater.name }}</h5>
-          <button type="button" class="custom_buttom2 dropdown-toggle dropdown-toggle-split hb" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-              <path
-                d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-            </svg>
-          </button>
-          <div class="dropdown-menu">
-            <button class="dropdown-item" type="button">Action</button>
-            <button class="dropdown-item" type="button">Another action</button>
-            <button class="dropdown-item" type="button">Something else here</button>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Separated link</a>
-          </div>
         </div>
+        <img class="card-img-top custom_img" :src="theater.image" alt="Card image cap">
         <div class="card-body">
-          <!-- <h6 class="card-subtitle mb-2 text-muted">Theater Name: ABC Theater</h6> -->
           <p class="card-text">Location: {{ theater.address }}</p>
           <p class="card-text">Capacity: {{ theater.capacity }}</p>
-          <p class="card-text">Shows: {{ theater.capacity }}</p>
         </div>
+        <hr>
+        <div class="hb">
+            <button v-on:click="updateTheater(theater.name,theater.id)" type="button" class="custom_buttom" data-toggle="modal" data-target="#updateTheaterModal" data-whatever="@getbootstrap">Update</button>
+            <Update_theater :theater='name' :id="id"></Update_theater>
+            <button v-on:click="updateTheater(theater.name,theater.id)" type="button" id="custom_buttom" data-toggle="modal" data-target="#deleteTheater" data-whatever="@getbootstrap">Delete</button>
+        </div>
+        <Delete_theater :theater='name' :id="id"></Delete_theater>
       </div>
     </div>
   </div>
 </template>
 <script>
 import Create_theater from "@/components/Admin/create_theater.vue"
-const baseURL = "https://cinemaghar.onrender.com";
+import Update_theater from "@/components/Admin/update_theater.vue"
+import Delete_theater from "@/components/Admin/Delete_theater.vue"
+const baseURL = "http://localhost:8080";
 import axios from 'axios';
 const token=localStorage.getItem('access_token');
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 export default {
   components: {
-    Create_theater
+    Create_theater,
+    Update_theater,
+    Delete_theater,
   },
   data() {
     return {
-      isDropdownOpen: false,
-      Theaters: []
+      Theaters: [],
+      name:'',
+      id:'',
     };
   },
   methods: {
-    toggleDropdown() {
-      this.isDropdownOpen = !this.isDropdownOpen;
+    updateTheater(name,id){
+      this.name=name;
+      this.id=id;
     },
-    deleteItem() {
-      // Handle delete functionality here
-    },
-    updateItem() {
-      // Handle update functionality here
-    }
   },
   mounted() {
     axios.get(`${baseURL}/api/get_theater_data`).then(res => {
@@ -76,6 +67,21 @@ export default {
 }
 </script>
 <style>
+#custom_buttom {
+    border-radius: 50px;
+    background-color: rgb(243, 47, 8);
+}
+
+#custom_buttom:hover {
+    box-shadow: 0 0 0 0.2rem rgba(255, 183, 0, 0.485);
+}
+
+.custom_buttom {
+    padding: 10px;
+    border-radius: 50px;
+    background-color: blueviolet;
+}
+
 .custom_buttom2 {
   background-color: initial;
   border: none;
