@@ -15,13 +15,14 @@
                     v-on:keyup.enter="handleEnter" v-model="searchQuery" autofocus />
             </div>
             <div>
-                <ul v-if="searchResults.length > 0 && filter=='movies'">
-                    <li v-for="result in Unique_Movies" ><a
-                            :href="`/user/search/movies/${result}`">{{
+                <ul v-if="Unique_Movies.length > 0 && filter=='movies'">
+                    <li v-for="result in Unique_Movies" >
+                        <a :href="`/user/search/movies/${result}`">{{
                                 result}}</a></li>
                 </ul>
-                <ul v-if="searchResults.length > 0 && filter=='theaters'">
-                    <li v-for="result in Unique_theaters" ><a :href="`/user/search/theaters/${result}`">{{result}}</a></li>
+                <ul v-if="Unique_theaters.length > 0 && filter=='theaters'">
+                    <li v-for="result in Unique_theaters" >
+                        <a :href="`/user/search/theaters/${result}`">{{result}}</a></li>
                 </ul>
             </div>
         </div>
@@ -39,7 +40,7 @@
 </template>
   
 <script>
-const baseURL = "http://localhost:8080";
+const baseURL = "https://cinemaghar.onrender.com";
 import axios from 'axios';
 const token = localStorage.getItem('access_token');
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -62,6 +63,7 @@ export default {
             if (this.filter === 'theaters') {
                 axios.post(`${baseURL}/api/search_theaters`, postdata).then(res => {
                     this.searchResults = res.data;
+                    this.Unique_theaters=[];
                     for (let i = 0; i < this.searchResults.length; i++) {
                         const name = this.searchResults[i].name;
                         if (!this.Unique_theaters.includes(name)) {
@@ -72,6 +74,7 @@ export default {
             } else if (this.filter === 'movies') {
                 axios.post(`${baseURL}/api/search_movies`, postdata).then(res => {
                     this.searchResults = res.data;
+                    this.Unique_Movies=[];
                     for (let i = 0; i < this.searchResults.length; i++) {
                         const name = this.searchResults[i].name;
                         if (!this.Unique_Movies.includes(name)) {

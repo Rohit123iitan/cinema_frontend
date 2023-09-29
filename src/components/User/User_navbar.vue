@@ -1,23 +1,23 @@
 <template>
     <div>
         <div class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-            <a class="navbar-brand" href="#">My_Show.com</a>
+            <a class="navbar-brand" href="#">Cinemaghar</a>
             <div class="search1">
-                    <search></search>
+                <search></search>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/user/movies">Home</a>
+                        <a class="nav-link" href="/user">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/user/movies">Movies</a>
-                        
+
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/user/theaters">Theaters</a>
@@ -30,7 +30,7 @@
                     <search></search>
                 </div>
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item" v-if="token==null">
+                    <li class="nav-item" v-if="token == null">
                         <a class="nav-link  ctm_btn" href="/">Login</a>
                     </li>
                     <li class="nav-item" v-if="token">
@@ -38,9 +38,9 @@
                     </li>
                 </ul>
             </div>
-            
+
         </div>
-            <router-view />
+        <router-view />
     </div>
 </template>
   
@@ -50,46 +50,46 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import search from '@/components/User/Search.vue';
 export default {
-    // name: 'user',
-    data(){
-        return{
-            token:null,
+    data() {
+        return {
+            token: null,
         }
     },
-    components:{
+    components: {
         search,
     },
-    methods:{
-        Logout(){
+    methods: {
+        Logout() {
             localStorage.removeItem("access_token");
-            this.token=null;
-            this.$router.push({path:'/'});
-        }
+            this.token = null;
+            this.$router.push({ path: '/' });
+        },
     },
-    mounted(){
-        this.token=localStorage.getItem('access_token');
-        
+    mounted() {
+        this.token = localStorage.getItem('access_token');
     }
 };
 </script>
   
 <style scoped>
-.ctm_btn{
+.ctm_btn {
     border-radius: 20px;
     color: rgb(245, 245, 249) !important;
     background-color: rgba(3, 17, 95, 0.959);
     padding-left: 20px;
     padding-right: 20px;
-    cursor:pointer;
+    cursor: pointer;
 }
-.ctm_btn:hover{
+
+.ctm_btn:hover {
     box-shadow: 0 0 0 0.2rem rgba(254, 4, 250, 0.881);
 
 }
+
 .navbar {
     /* margin-bottom: 20px; */
     background: linear-gradient(to right, #ff0000, #edf506eb);
-    
+
 }
 
 .navbar-brand {
@@ -106,7 +106,8 @@ export default {
     background-color: #f8f9fa7c;
     border-radius: 10px;
 }
-.search1{
+
+.search1 {
     display: none;
 }
 
@@ -114,28 +115,28 @@ export default {
     .navbar-nav {
         flex-direction: column;
     }
+
     .navbar-nav .nav-item {
         margin-bottom: 10px;
     }
+
     .navbar-nav .nav-link {
         text-align: center;
     }
-    .input-group {
-        margin-top: 0;
-        margin-bottom: 10px;
-    }
+
     .ml-auto {
         margin-left: auto !important;
     }
-    .search{
+
+    .search {
         display: none;
     }
 }
+
 @media (min-width: 768px) and (max-width: 992px) {
-    .search1{
+    .search1 {
         display: block;
     }
-}
-</style>
+}</style>
   
   

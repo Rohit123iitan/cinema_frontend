@@ -13,8 +13,8 @@
     </div>
     <div class="card custom_card1 ">
       <div v-if="show" :class="['flash-message', type]" class="pos">
-        <div v-if="type == 'error'" style="display: inline-block;">&#9888;</div>
-        <div v-if="type == 'warning'" style="display: inline-block;"> &#x1F504;</div>
+        <!-- <div v-if="type == 'error'" style="display: inline-block;">&#9888;</div>{{ message }} -->
+        <!-- <div v-if="type == 'warning'" style="display: inline-block;"> &#x1F504;</div>{{ message }} -->
         <div v-if="type == 'success'" style="display: inline-block;">&#127881;</div> {{ message }}
         <button type="button" class="mx-2 close" @click="hideFlashMessage">&times;</button>
       </div>
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-const baseURL = "http://localhost:8080";
+const baseURL = "https://cinemaghar.onrender.com";
 import axios from 'axios';
 const token=localStorage.getItem('access_token');
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -91,8 +91,9 @@ export default {
     },
     async initiate_payment() {
       try {
+        const user_id=localStorage.getItem('user_id');
         const postdata = {
-          user_id: 1,
+          user_id: user_id,
           movie_id: this.$route.params.id,
           ticket: this.ticketDetails,
           total_ticket: this.ticketCount,
@@ -140,7 +141,7 @@ export default {
           console.log(res);
         })
         .catch((error) => {
-          this.showFlashMessage(error.data.message, "error");
+          // this.showFlashMessage(error.data.message, "error");
           console.error(error);
         });
     }

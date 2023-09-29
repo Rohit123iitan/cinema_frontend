@@ -13,7 +13,8 @@
     </div>
     <div class="row">
       <div class="card text-white m-2 custom_card " v-for="movie in Movies" v-if="(movie.Rating > 0 && movie.Rating == selectedRating) || selectedRating === ''">
-        <div class="card-header">
+        
+          <div class="card-header">
           <h5 class="card-title text-center">{{ movie.name }}</h5>
         </div>
         <img class="card-img-top custom_img" :src="movie.image" alt="Card image cap">
@@ -26,8 +27,15 @@
           <hr style="border-color: red;border-style:dashed;">
           <rating :movieId="movie.id"></rating>
           <hr style="border-color: red;border-style:dashed;">
-          <div>
+          <div v-if="movie.Housefull==false ">
             <router-link :to="`/user/booking/${movie.id}`"><button class="custom_buttom">Book Now</button></router-link>
+          </div>
+          <div v-else>
+            <div v-if="show" class="py-2">
+              <div style="display: inline-block;">&#9888;</div>{{ message }}
+              <button type="button" class="mx-2 close " @click="hideFlashMessage">&times;</button>
+            </div>
+            <button class="custom_buttom" @click="alert_message">Book Now</button>
           </div>
         </div>
       </div>
@@ -35,28 +43,38 @@
   </div>
 </template>
 <script>
-const baseURL = "http://localhost:8080";
+const baseURL = "https://cinemaghar.onrender.com";
 import axios from 'axios';
 import rating from '@/components/User/Raating.vue';
-// const token=localStorage.getItem('access_token');
-// axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 export default {
   data() {
     return {
       selectedRating: '', // Selected rating filter
       ratings: [1, 2, 3, 4, 5],
-      Movies: []
+      Movies: [],
+      show:false,
+      message: '',
     };
   },
   components:{
     rating,
+  },
+  methods:{
+    alert_message(){
+      this.show=true;
+      this.message="sorry for inconvenience , Seats is already filled."
+    },
+    hideFlashMessage(){
+      this.show=false;
+      this.message=null;
+    }
   },
   mounted() {
     axios.get(`${baseURL}/api/get_movies`).then(res => {
       this.Movies = res.data;
       console.log(res);
     }).catch(error => {
-      console.log(error)
+      console.log(error);
       this.$router.push({path:'/'});
     })
   }

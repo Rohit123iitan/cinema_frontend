@@ -10,11 +10,11 @@ const routes = [
     children: [
       {
         path: '/',
-        component: () => import(/* webpackChunkName: "about" */ '../views/user_login.vue')
+        component: () => import('../views/user_login.vue')
       },
       {
         path: '/admin_login',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Admin.vue')
+        component: () => import( '../views/Admin.vue')
       },
       {
         path: '/user_reg',
@@ -25,7 +25,7 @@ const routes = [
   
   {
     path: '/admin',
-    component: () => import( '../views/Admin_Navbar.vue'),
+    component: () => import( '../components/Admin/Admin_Navbar.vue'),
     children: [
       {
         path: '',
@@ -37,7 +37,7 @@ const routes = [
       },
       {
         path: 'movies',
-        component: () => import( '../components/Admin/Shows.vue')
+        component: () => import( '../components/Admin/Movies.vue')
       }
     ]
   },

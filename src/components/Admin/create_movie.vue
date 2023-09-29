@@ -83,7 +83,7 @@
     </div>
 </template>
 <script>
-const baseURL = "http://localhost:8080";
+const baseURL = "https://cinemaghar.onrender.com";
 import axios from 'axios';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -137,6 +137,7 @@ export default {
             this.type = '';
         },
         async save() {
+            const admin_id = localStorage.getItem('admin_id');
             const formData = new FormData();
             formData.append('m_name', this.MovieName);
             formData.append('m_date', this.MovieDate);
@@ -146,15 +147,21 @@ export default {
             formData.append('m_type', this.movie_type);
             formData.append('m_cost', this.price);
             formData.append('m_image', this.MovieImage);
+            formData.append('admin_id', admin_id);
             try {
+                const token = localStorage.getItem('access_token');
+                console.log(token);
                 const res = await axios.post(`${baseURL}/api/add_movie`, formData)
                 if (res.status != 200) {
                     this.$refs.myButton.click();
                 }
                 else {
+                    window.location.reload();
                     this.$refs.myButton.click();
                 }
+                console.log(res)
             } catch (error) {
+                console.log(error)
                 this.$refs.myButton.click();
             }
 

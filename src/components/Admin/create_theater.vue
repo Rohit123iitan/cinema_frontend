@@ -54,7 +54,7 @@
     </div>
 </template>
 <script>
-const baseURL = "http://localhost:8080";
+const baseURL = "https://cinemaghar.onrender.com";
 import axios from 'axios';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -62,7 +62,6 @@ import 'bootstrap/dist/js/bootstrap.js';
 const token = localStorage.getItem('access_token');
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 export default {
-    
     data() {
         return {
             theaterName: '',
@@ -89,19 +88,21 @@ export default {
             this.type = '';
         },
         async register() {
+            const admin_id = localStorage.getItem('admin_id');
             const formData = new FormData();
             formData.append('image', this.TheaterImage);
             formData.append('t_name', this.theaterName);
             formData.append('t_address', this.theaterAddress);
             formData.append('t_capacity', this.theaterCapacity);
+            formData.append('admin_id', admin_id);
             console.log(formData)
             try {
                 const res = await axios.post(`${baseURL}/api/add_theater`, formData)
                 if (res.status != 200) {
                     this.$refs.myButton.click();
-                    console.log(res);
                 }
                 else {
+                    window.location.reload();
                     this.$refs.myButton.click();
                 }
             } catch (error) {

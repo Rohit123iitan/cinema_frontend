@@ -36,8 +36,9 @@
                 <button class="btn btn-primary btn-lg btn-block" type="submit" v-on:click="login">Login</button>
               </div>
             </div>
-            <div>
-              <p class="mb-0" >Get admin access : <admin_access></admin_access>
+            <hr >
+            <div  id="custom_btn">
+              <p class="mb-0" ><admin_access></admin_access>
               </p>
             </div>
           </div>
@@ -51,7 +52,7 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
-const baseURL = "https://cinemaghar.onrender.com";
+const baseURL = "http://localhost:8080";
 import axios from 'axios';
 import admin_access from '@/components/Admin/Admin_access.vue'
 export default {
@@ -79,7 +80,7 @@ export default {
         if (res.status == 200) {
           console.log(res);
           localStorage.setItem('access_token', res.data[0]);
-          localStorage.setItem('user_id', res.data[1]);
+          localStorage.setItem('admin_id', res.data[1]);
           return this.$router.push({ path: '/admin' });
         }
         else {
@@ -95,6 +96,11 @@ export default {
 }
 </script>
 <style>
+#custom_btn{
+  background-color: aliceblue;
+  padding: 10px;
+  border-radius: 5px;
+}
 .row{
   margin: 10px;
 }

@@ -1,13 +1,13 @@
 <template>
     <div>
         <div v-if="show" :class="['flash-message', type]" class="pos">
-            <div v-if="type == 'error'" style="display: inline-block;">&#9888;</div>
-            <div v-if="type == 'warning'" style="display: inline-block;"> &#x1F504;</div>
+            <div v-if="type == 'error'" style="display: inline-block;">&#9888;</div>{{ message }}
+            <div v-if="type == 'warning'" style="display: inline-block;"> &#x1F504;</div>{{ message }}
             <div v-if="type == 'success'" style="display: inline-block;">&#127881;</div> {{ message }}
             <button type="button" class="mx-2 close" @click="hideFlashMessage">&times;</button>
         </div>
-        <div style="display: inline-flex;">
-            <a data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Get access</a>
+        <div id="custom_color">
+            <a data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Get admin access</a>
         </div>
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="addTheaterModalLabel"
             aria-hidden="true">
@@ -21,7 +21,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="registered">Have you already registered as a user?</label>
+                            <label for="registered">Have you already registered as an user?</label>
                             <select class="form-control" id="registered" v-model="registered">
                                 <option value="yes">Yes</option>
                                 <option value="no">No</option>
@@ -29,7 +29,7 @@
                         </div>
                         <div v-if="registered == 'no'">
                             <div class="mb-3">
-                                <label for="admin_name" class="form-label">Admin name</label>
+                                <label for="admin_name" class="form-label">Your good name</label>
                                 <input type="text" class="form-control" id="admin_name" placeholder="Enter your name"
                                     v-model="admin_name">
                             </div>
@@ -43,10 +43,15 @@
                                 <input type="number" class="form-control" id="confirm_password"
                                     placeholder="Enter confirm password" v-model="confirm_password">
                             </div>
+                            <div class="mb-3">
+                                <label for="admin_email" class="form-label">Email</label>
+                                <input type="text" class="form-control" id="admin_email" placeholder="Enter your email"
+                                    v-model="admin_email">
+                            </div>
                         </div>
                         <div v-if="registered == 'yes'">
                             <div class="mb-3">
-                                <label for="admin_name" class="form-label">Admin name</label>
+                                <label for="admin_name" class="form-label">Your good name</label>
                                 <input type="text" class="form-control" id="admin_name" placeholder="Enter your name"
                                     v-model="admin_name">
                             </div>
@@ -62,7 +67,7 @@
     </div>
 </template>
 <script>
-const baseURL = "http://localhost:8080";
+const baseURL = "https://cinemaghar.onrender.com";
 import axios from 'axios';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -78,7 +83,8 @@ export default {
             confirm_password: '',
             show: false,
             message: '',
-            type: ''
+            type: '',
+            admin_email:''
         };
     },
     watch: {
@@ -106,6 +112,7 @@ export default {
                     a_name: this.admin_name,
                     a_new_password: this.new_password,
                     a_confirm_password: this.confirm_password,
+                    a_email:this.admin_email,
                     registered:this.registered
                 };
                 try {
@@ -124,15 +131,14 @@ export default {
                 }
             }
             if (this.registered == 'yes') {
-                const postData = {
+                let postData={
                     a_name: this.admin_name,
                     registered:this.registered
-                };
+                }
                 try {
-                    const res = await axios.post(`${baseURL}/api/get_admin_access`, postData)
+                    const res = await axios.post(`${baseURL}/api/get_admin_access`, postData);
                     if (res.status != 200) {
                         this.$refs.myButton.click();
-                        console.log(res);
                     }
                     else {
                         this.$refs.myButton.click();
@@ -140,7 +146,6 @@ export default {
                 } catch (error) {
                     console.log(error);
                     this.$refs.myButton.click();
-                    this.handleError(error);
                 }
             }
         },
@@ -151,6 +156,15 @@ export default {
 }
 </script>
 <style>
+#custom_color{
+    display: inline-flex;
+    cursor: pointer;
+    color: dimgrey;
+    border: none;
+}
+#custom_color :hover{
+    color:dodgerblue;
+}
 .custom_buttom {
     padding: 10px;
     border-radius: 50px;

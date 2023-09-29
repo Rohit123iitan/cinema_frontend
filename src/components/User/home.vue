@@ -2,7 +2,7 @@
   <div class="container custm_container">
     <div class="card " id="custm_card">
       <div class="card-body text-center">
-        <h1 class="card-title ">Welcome to Show.com!</h1>
+        <h1 class="card-title ">Welcome to Cinemaghar!</h1>
         <p class="card-text">The ultimate destination for movie lovers.</p>
         <hr>
         <p class="card-text">Book your movie tickets online with ease and convenience.</p>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-      <a class="navbar-brand" href="#">My_Show.com</a>
+      <a class="navbar-brand" href="#">Cinemaghar</a>
       <div class="search1">
         <search></search>
       </div>
@@ -21,11 +21,11 @@
             <router-link to="/admin/theater" class="nav-link">Theaters</router-link>
           </li>
         </ul>
-        <div class="ml-auto search">
-          <search class="nav-item"></search>
+        <Notification class="ml-auto text-center px-4"></Notification>
+        <div class="navbar-nav nav-item px-4" >
+            <a class="nav-link  ctm_btn" @click="generate_csv">Generate Report</a>
         </div>
-        <Notification class="ml-auto text-center "></Notification>
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ">
           <li class="nav-item" v-if="token == null">
             <a class="nav-link  ctm_btn" href="/admin_login">Login</a>
           </li>
@@ -45,7 +45,7 @@ import search from '@/components/User/Search.vue';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
-const baseURL = "http://localhost:8080";
+const baseURL = "https://cinemaghar.onrender.com";
 import axios from 'axios';
 const token = localStorage.getItem('access_token');
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -64,13 +64,23 @@ export default {
     search
   },
   methods: {
-    watched() {
-      this.count = 0
-    },
     Logout() {
-      localStorage.removeItem("admin_access_token");
+      localStorage.removeItem("access_token");
       this.token = null;
       this.$router.push({ path: '/admin_login' });
+    },
+    async generate_csv(){
+      const admin_id = localStorage.getItem('admin_id');
+      const postdata={
+        admin_id:admin_id,
+      }
+      const res = await axios.post(`${baseURL}/api/generate_csv_file`,postdata)
+      if (res.status != 200) {
+          console.log(res);
+      }
+      else {
+          console.log(res);
+      }
     }
   },
   mounted() {
@@ -100,6 +110,7 @@ export default {
     padding-left: 20px;
     padding-right: 20px;
     cursor:pointer;
+    margin-bottom: 5px;
 }
 .ctm_btn:hover{
     box-shadow: 0 0 0 0.2rem rgba(254, 4, 250, 0.881);
@@ -122,7 +133,6 @@ export default {
 .navbar-nav .nav-item:hover {
   background-color: #f8f9fa7c;
   border-radius: 10px;
-
 }
 .search1{
     display: none;

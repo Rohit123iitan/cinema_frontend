@@ -20,8 +20,7 @@
     </div>
 </template>
 <script>
-const baseURL = "http://localhost:8080";
-import store from '@/store';
+const baseURL = "https://cinemaghar.onrender.com";
 import axios from 'axios';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -68,7 +67,7 @@ export default {
             this.show = true;
             setTimeout(() => {
                 this.hideFlashMessage();
-            }, 3000); // Hide the flash message after 3 seconds (adjust as needed)
+            }, 3000);
         },
         hideFlashMessage() {
             this.show = false;
@@ -83,13 +82,13 @@ export default {
                 const res = await axios.put(`${baseURL}/api/delete_movie`, postdata)
                 if (res.status == 200) {
                     console.log("deleted");
-                    // this.$refs.myButton.click();
+                    this.$refs.myButton.click();
                 }
                 else {
-                    // this.$refs.myButton.click();
+                    this.$refs.myButton.click();
                 }
             } catch (error) {
-                // this.$refs.myButton.click();
+                this.$refs.myButton.click();
             }
 
         },

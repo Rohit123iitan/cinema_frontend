@@ -67,7 +67,7 @@
     </div>
 </template>
 <script>
-const baseURL = "http://localhost:8080";
+const baseURL = "https://cinemaghar.onrender.com";
 import store from '@/store';
 import axios from 'axios';
 import 'bootstrap';

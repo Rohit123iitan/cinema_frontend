@@ -37,7 +37,7 @@
   </div>
 </template>
 <script>
-const baseURL = "http://localhost:8080";
+const baseURL = "https://cinemaghar.onrender.com";
 import axios from 'axios';
 import rating from '@/components/User/Raating.vue';
 const token = localStorage.getItem('access_token');
@@ -66,7 +66,6 @@ export default {
       console.log(res);
     }).catch(error => {
       console.log(error)
-      // this.$router.push({ path: '/' });
     })
   }
 }
@@ -90,6 +89,11 @@ color: aliceblue;
 
 .dropdown-toggle::after {
 display: none !important;
+}
+
+.hb {
+display: flex;
+justify-content: space-between;
 }
 
 .style_header {

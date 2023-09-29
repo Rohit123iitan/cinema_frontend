@@ -31,7 +31,7 @@
 import Create_theater from "@/components/Admin/create_theater.vue"
 import Update_theater from "@/components/Admin/update_theater.vue"
 import Delete_theater from "@/components/Admin/Delete_theater.vue"
-const baseURL = "http://localhost:8080";
+const baseURL = "https://cinemaghar.onrender.com";
 import axios from 'axios';
 const token=localStorage.getItem('access_token');
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -68,7 +68,9 @@ export default {
 </script>
 <style>
 #custom_buttom {
-    border-radius: 50px;
+    margin-top: 0%;
+    margin-left: 0%;
+    border-radius: 20px;
     background-color: rgb(243, 47, 8);
 }
 
@@ -77,7 +79,6 @@ export default {
 }
 
 .custom_buttom {
-    padding: 10px;
     border-radius: 50px;
     background-color: blueviolet;
 }
@@ -106,8 +107,12 @@ export default {
   border-radius: 50px !important;
   background-color: chartreuse;
 }
+.custom_img {
+  height: 12rem;
+}
 .custom_card{
   width:18rem;
+  /* height:18rem; */
   background-color: rgb(23, 60, 97);
 }
 @media only screen and (max-width: 767px) {

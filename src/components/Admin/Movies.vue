@@ -29,10 +29,10 @@
   </div>
 </template>
 <script>
-import Create_movie from "@/components/Admin/create_theater.vue"
+import Create_movie from "@/components/Admin/create_movie.vue"
 import Update_movie from "@/components/Admin/update_movie.vue"
 import Delete_movie from "@/components/Admin/Delete_movie.vue"
-const baseURL = "http://localhost:8080";
+const baseURL = "https://cinemaghar.onrender.com";
 import axios from 'axios';
 const token = localStorage.getItem('access_token');
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -68,7 +68,9 @@ export default {
 </script>
 <style>
 #custom_buttom {
-    border-radius: 50px;
+    margin-top: 0%;
+    margin-left: 0%;
+    border-radius: 20px;
     background-color: rgb(243, 47, 8);
 }
 

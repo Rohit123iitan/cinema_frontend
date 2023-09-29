@@ -20,7 +20,7 @@
     </div>
 </template>
 <script>
-const baseURL = "http://localhost:8080";
+const baseURL = "https://cinemaghar.onrender.com";
 import axios from 'axios';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -52,13 +52,13 @@ export default {
                 if (res.status == 200) {
                     console.log("deleted");
                     window.location.reload();
-                    // this.$refs.myButton.click();
+                    this.$refs.myButton.click();
                 }
                 else {
-                    // this.$refs.myButton.click();
+                    this.$refs.myButton.click();
                 }
             } catch (error) {
-                // this.$refs.myButton.click();
+                this.$refs.myButton.click();
             }
 
         },

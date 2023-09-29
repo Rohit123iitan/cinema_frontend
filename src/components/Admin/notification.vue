@@ -2,7 +2,7 @@
     <div>
         <div class="dropleft  ml-auto">
           <a type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-            @click="watched"> Notification
+            > Notification
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill"
               viewBox="0 0 16 16">
               <path
@@ -12,15 +12,16 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li v-for="notification in notify">
-              <a class="dropdown-item" href="#">{{ notification.name }} request for getting access for admin</a>
-              <div class="row">
-                <div class="col">
-                    <button> add</button>
+              <a class="dropdown-item" href="#">{{ notification.name }} request for getting access as an admin</a>
+              <div class="row" style="padding: 20px;">
+                <div class="col" >
+                    <a id="custom_btn" @click="add_admin(notification.id,notification.name)">add</a>
                 </div>
-                <div class="col ml-auto">
-                    <button>remove</button>
+                <div class="col" >
+                    <a id="custom_btn" @click="remove_admin(notification.id,notification.name)">remove</a>
                 </div>
               </div>
+              <hr style="color: blueviolet;">
             </li>
           </ul>
         </div>
@@ -30,7 +31,7 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
-const baseURL = "http://localhost:8080";
+const baseURL = "https://cinemaghar.onrender.com";
 import axios from 'axios';
 const token = localStorage.getItem('access_token');
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -38,23 +39,40 @@ export default {
   name: "admin",
   data() {
     return {
-      count: 1,
+      count: 0,
       notify: []
     }
   },
   methods: {
     watched() {
       this.count = 0
-      // axios.get(`${baseURL}/api/seen_notification`).then(res => {
-      //   this.notify = res.data;
-      //   this.count = this.notify.length;
-      //   console.log(res);
-      // }).catch(error => {
-      //   if (error.response.request.status == 422) {
-      //     this.$router.push({ path: '/admin_login' });
-      //   }
-      // })
-    }
+    },
+    add_admin(id,name){
+      let post_data={
+        "id":id,
+        "name":name,
+      }
+      axios.post(`${baseURL}/api/add_admin`,post_data).then(res => {
+        window.location.reload();
+      }).catch(error => {
+        if (error.response.request.status == 422) {
+          this.$router.push({ path: '/admin_login' });
+        }
+      })
+    },
+    remove_admin(id,name){
+      let post_data={
+        "id":id,
+        "name":name,
+      }
+      axios.put(`${baseURL}/api/remove_admin`,post_data).then(res => {
+        window.location.reload();
+      }).catch(error => {
+        if (error.response.request.status == 422) {
+          this.$router.push({ path: '/admin_login' });
+        }
+      })
+    },
   },
   mounted() {
     const token = localStorage.getItem('access_token');
@@ -80,5 +98,21 @@ export default {
   position: relative;
   bottom: 5px;
   right: 5px;
+}
+#custom_btn{
+  /* margin-top: 10px; */
+  margin-left: 20px;
+  border-radius: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: rgb(245, 245, 249) !important;
+  background-color: rgba(3, 17, 95, 0.959);
+  cursor:pointer;
+  text-align: center;
+}
+#custom_btn:hover{
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
 }
 </style>

@@ -15,9 +15,9 @@
       </div>
       <div class="row">
         <div class="card text-white m-2 style_card " v-for="movie in Movies" v-if="(movie.rating > 0 && movie.rating == selectedRating) || selectedRating === ''">
-          <div class="card-header">
-          <h5 class="card-title text-center">{{ movie.name }}</h5>
-        </div>
+          <div class="card-header ">
+            <h5 class="card-title text-center">{{ movie.name }}</h5>
+          </div>
           <img class="card-img-top style_img" :src="movie.image" alt="Card image cap">
           <div class="card-body">
             <p class="card-text">vacent seat: {{ movie.seats }}</p>
@@ -37,7 +37,7 @@
     </div>
   </template>
   <script>
-  const baseURL = "http://localhost:8080";
+  const baseURL = "https://cinemaghar.onrender.com";
   import axios from 'axios';
   import rating from '@/components/User/Raating.vue';
   const token = localStorage.getItem('access_token');
@@ -58,14 +58,15 @@
     },
     created() {
       this.resultId = this.$route.params.Id;
+      this.resultName = this.$route.params.name;
     },
     mounted() {
-      axios.post(`${baseURL}/api/get_theater_details`, { "theater_name": this.resultId }).then(res => {
+      axios.post(`${baseURL}/api/get_theater_details`, { "theater_name": this.resultName }).then(res => {
         this.Movies = res.data;
         console.log(res);
       }).catch(error => {
         console.log(error)
-        this.$router.push({ path: '/' });
+        // this.$router.push({ path: '/' });
       })
     }
   }
@@ -89,6 +90,11 @@
 
 .dropdown-toggle::after {
   display: none !important;
+}
+
+.hb {
+  display: flex;
+  justify-content: space-between;
 }
 
 .style_header {

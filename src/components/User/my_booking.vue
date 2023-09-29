@@ -27,7 +27,7 @@
     </table>
   </template>
   <script>
-  const baseURL = "http://localhost:8080";
+  const baseURL = "https://cinemaghar.onrender.com";
 import axios from 'axios';
 const token=localStorage.getItem('access_token');
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -43,7 +43,8 @@ axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       }
     },
     mounted() {
-    const postdata = { user_id: 1 }
+    const user_id=localStorage.getItem('user_id');
+    const postdata = { user_id: user_id }
     axios.post(`${baseURL}/api/my_bookings`, postdata).then(res => {
       this.tickets = res.data;
     }).catch(error => {
