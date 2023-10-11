@@ -84,7 +84,7 @@ export default {
     }
   },
   mounted() {
-    this.token= localStorage.getItem('admin_access_token');
+    this.token= localStorage.getItem('access_token');
     if (this.token === null) {
       this.$router.push({
         path: '/admin_login'
